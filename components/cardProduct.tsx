@@ -1,9 +1,12 @@
 import Image from 'next/image'
-export const cardProduct = ({product}) => {
+import { ProductObject } from '../interfaces/interfaces';
 
-  // console.log(product);
 
-  const { image, screen, storage, system,  processor, title, slug } = product;
+export const CardProduct = ({product}: {product:ProductObject}) => {
+
+  console.log(product);
+
+  const { screen, storage, system,  processor, title } = product;
 
   return (
     <div>
