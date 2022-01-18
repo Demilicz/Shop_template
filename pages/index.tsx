@@ -1,19 +1,36 @@
 import {  GetStaticProps, InferGetStaticPropsType, NextPage } from 'next';
-import { CardProduct } from '../components/CardProduct';
+
+import { useState } from 'react';
+
+import { CardProduct , Header, Footer, Filters, Pagination} from '../components/index';
+
 import { ProductObject } from '../interfaces/interfaces';
+
+import  Style  from '../styles/Home.module.css';
 
 
 const Home: NextPage<{products:ProductObject[]}> = ({ products, total } : InferGetStaticPropsType<typeof getStaticProps>) => {
 
+  const [pages, setPages] = useState(Math.ceil(total/12));
+  const [currentPage, setCurrentPage] = useState(1);
+
+
   return (
     <main>
-      <pre>{  JSON.stringify(products, null, 2)}</pre>
+      <Header/>
+      <div className={Style.container}>
+        <Filters/>
+        <div className={Style.card_container}>
+          {currentPage === 1 &&  products.map((product:ProductObject) => {
+            return <CardProduct key={product.sys.id} product={product} />
+          })}
+          <Pagination pages={pages} setPage={setCurrentPage} page={currentPage}/>
+        </div>
 
-      {products.map((product:ProductObject) => {
-        <CardProduct key={product.sys.id} product={product} />
-      })}
+      </div>
 
-
+      <Footer/>
+             {/* <pre>{  JSON.stringify(products, null, 2)}</pre> */}
     </main>
   )
 }
@@ -30,7 +47,7 @@ export const getStaticProps: GetStaticProps = async () => {
     body: JSON.stringify({
      query: `
        query {
-         productCollection(limit:10){
+         productCollection(limit:12){
            total
            items{
                thumbnail{

@@ -2,15 +2,35 @@ import Image from 'next/image'
 import { ProductObject } from '../interfaces/interfaces';
 
 
+
 export const CardProduct = ({product}: {product:ProductObject}) => {
 
-  console.log(product);
-
-  const { screen, storage, system,  processor, title } = product;
+  const { screen, storage, system,  processor, title, thumbnail, price } = product;
 
   return (
-    <div>
-      {/* <Image/> */}
+    <div className='card'>
+      <Image  src={ thumbnail.url } width={ thumbnail.width } height={ thumbnail.height } alt={ title }/>
+      <h3>{ title }</h3>
+      <div className='info'>
+        <span className='card_text'>Screen: { screen +'"' }</span>
+        <span className='card_text'>Processor: { processor }</span>
+        <span className='card_text'>Storage:{ storage +'GB'}</span>
+        <span className='card_text'>System:{ system }</span>
+        <p className='card_price'>Price: { price +'zł'}</p>
+      </div>
+
+      <style jsx>{`
+            .card{
+              flex: 0 0 33%;
+              display: flex;
+              flex-direction: column;
+              padding: 35px 65px;
+            }
+            .info{
+              display: flex;
+              flex-direction: column;
+            }
+        `}</style>
     </div>
   )
 }
