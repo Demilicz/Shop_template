@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 type Paginate = string | number;
 
 
-export default function Pagination (props: {pages: number, setPage: React.Dispatch<React.SetStateAction<number>>, page:number}) {
+export const Pagination = (props: {pages: number, setPage: React.Dispatch<React.SetStateAction<number>>, page:number}) => {
 
 
   const numberOfPages: Array<Paginate> = [] ;
