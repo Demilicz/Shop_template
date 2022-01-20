@@ -2,12 +2,12 @@ import {  GetStaticProps, InferGetStaticPropsType, NextPage } from 'next';
 
 import { useState } from 'react';
 
-// import { CardProduct , Header, Footer, Filters, Pagination} from '../components/index';
-import { CardProduct } from '../components/CardProduct';
-import { Header } from '../components/Header';
-import { Footer } from '../components/Footer';
-import { Filters } from '../components/Filters';
-import { Pagination } from '../components/Pagination';
+import { CardProduct , Header, Footer, Filters, Pagination} from '../components/index';
+// import { CardProduct } from '../components/CardProduct';
+// import { Header } from '../components/Header';
+// import { Footer } from '../components/Footer';
+// import { Filters } from '../components/Filters';
+// import { Pagination } from '../components/Pagination';
 
 import { ProductObject } from '../interfaces/interfaces';
 
