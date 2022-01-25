@@ -107,7 +107,7 @@ export const Pagination = (props: {pages: number, setPage: React.Dispatch<React.
 
 
   return (
-    <div>
+    <div className="pag-div">
       <ul className='pagination'>
         <li
           className={`page-item ${currentButton === 1 ? 'disabled' : ''}`}
@@ -133,6 +133,9 @@ export const Pagination = (props: {pages: number, setPage: React.Dispatch<React.
           </li>
       </ul>
       <style jsx>{`
+      .pag-div {
+        width: 100%;
+      }
       .pagination{
         display: flex;
         margin: 40px 0 61px 136px;

@@ -1,13 +1,12 @@
-import {  GetStaticProps, InferGetStaticPropsType, NextPage } from 'next';
+import { ApolloError } from '@apollo/client';
+
+import { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next';
 
 import { useState } from 'react';
 
 import { CardProduct , Header, Footer, Filters, Pagination} from '../components/index';
-// import { CardProduct } from '../components/CardProduct';
-// import { Header } from '../components/Header';
-// import { Footer } from '../components/Footer';
-// import { Filters } from '../components/Filters';
-// import { Pagination } from '../components/Pagination';
+
+import { useGetProducts } from '../hooks/useGetProducts';
 
 import { ProductObject } from '../interfaces/interfaces';
 
@@ -19,6 +18,9 @@ const Home: NextPage<{products:ProductObject[]}> = ({ products, total } : InferG
   const [pages, setPages] = useState(Math.ceil(total/12));
   const [currentPage, setCurrentPage] = useState(1);
 
+  const { error, loading, newData } : { error: ApolloError | undefined; loading: boolean; newData: ProductObject[]; } = useGetProducts(currentPage);
+
+
 
   return (
     <main>
@@ -29,13 +31,21 @@ const Home: NextPage<{products:ProductObject[]}> = ({ products, total } : InferG
           {currentPage === 1 &&  products.map((product:ProductObject) => {
             return <CardProduct key={product.sys.id} product={product} />
           })}
+
+          {currentPage > 1 && error && <div className='error'>Something went wrong..</div> }
+          { currentPage > 1 && loading &&  <div className='loading'>Its loading...</div> }
+          { currentPage > 1 && newData && newData.map((product:ProductObject) => {
+            return <CardProduct key={product.sys.id} product={product} />
+          })}
           <Pagination pages={pages} setPage={setCurrentPage} page={currentPage}/>
         </div>
+
+
 
       </div>
 
       <Footer/>
-             {/* <pre>{  JSON.stringify(products, null, 2)}</pre> */}
+             {/* <pre>{  JSON.stringify(data, null, 2)}</pre> */}
     </main>
   )
 }
@@ -77,9 +87,6 @@ export const getStaticProps: GetStaticProps = async () => {
 
   })
 
-
-
-
   const {data} = await res.json();
 
   const products:ProductObject[] = data.productCollection.items;
@@ -92,6 +99,6 @@ export const getStaticProps: GetStaticProps = async () => {
      total
     }
   }
- }
+}
 
 export default Home;
