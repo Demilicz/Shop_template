@@ -134,6 +134,7 @@ export const Pagination = (props: {pages: number, setPage: React.Dispatch<React.
       </ul>
       <style jsx>{`
       .pag-div {
+        align-self: end;
         width: 100%;
       }
       .pagination{

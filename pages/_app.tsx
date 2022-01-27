@@ -4,15 +4,18 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client"
 
 
 const client = new ApolloClient({
-  uri:`https://graphql.contentful.com/content/v1/spaces/japo6r7tpqjb/environments/master`,
+  uri:`https://graphql.contentful.com/content/v1/spaces/${process.env.NEXT_PUBLIC_SPACE_ID}/environments/master`,
   cache: new InMemoryCache(),
   headers: {
-    authorization: `Bearer qFNl9juyqGBhtAP8pQejNYNi5QfeeC8j8xyJ98Dct-M`,
+    authorization: `Bearer ${process.env.NEXT_PUBLIC_ACCESS_TOKEN}`,
     'Content-Type': 'application/json',
   }
 })
 
 function MyApp({ Component, pageProps }: AppProps) {
+
+  console.log(process.env.NEXT_PUBLIC_ACCESS_TOKEN);
+
   return  <ApolloProvider client={client}>
             <Component {...pageProps} />
           </ApolloProvider>

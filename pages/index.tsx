@@ -52,11 +52,11 @@ const Home: NextPage<{products:ProductObject[]}> = ({ products, total } : InferG
 
 export const getStaticProps: GetStaticProps = async () => {
 
-  const res = await fetch(`https://graphql.contentful.com/content/v1/spaces/${process.env.REACT_APP_SPACE_ID}/environments/master`,
+  const res = await fetch(`https://graphql.contentful.com/content/v1/spaces/${process.env.NEXT_PUBLIC_SPACE_ID}/environments/master`,
   {
      method: 'POST',
      headers: {
-      Authorization: `Bearer ${process.env.REACT_APP_ACCESS_TOKEN}`,
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_ACCESS_TOKEN}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
@@ -87,11 +87,11 @@ export const getStaticProps: GetStaticProps = async () => {
 
   })
 
-  const {data} = await res.json();
+  const {data} = await res?.json();
 
-  const products:ProductObject[] = data.productCollection.items;
+  const products:ProductObject[] = data?.productCollection?.items;
 
-  const total: number = data.productCollection.total;
+  const total: number = data?.productCollection?.total;
 
   return {
     props: {
