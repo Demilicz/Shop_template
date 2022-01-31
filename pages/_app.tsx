@@ -14,8 +14,6 @@ const client = new ApolloClient({
 
 function MyApp({ Component, pageProps }: AppProps) {
 
-  console.log(process.env.NEXT_PUBLIC_ACCESS_TOKEN);
-
   return  <ApolloProvider client={client}>
             <Component {...pageProps} />
           </ApolloProvider>

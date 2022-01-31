@@ -20,6 +20,7 @@ const Home: NextPage<{products:ProductObject[]}> = ({ products, total } : InferG
 
   const { error, loading, newData } : { error: ApolloError | undefined; loading: boolean; newData: ProductObject[]; } = useGetProducts(currentPage);
 
+  console.log(products);
 
 
   return (
@@ -28,22 +29,21 @@ const Home: NextPage<{products:ProductObject[]}> = ({ products, total } : InferG
       <div className={Style.container}>
         <Filters/>
         <div className={Style.card_container}>
-          {currentPage === 1 &&  products.map((product:ProductObject) => {
-            return <CardProduct key={product.sys.id} product={product} />
-          })}
+          <div className={Style.card_container_flex}>
+            {currentPage === 1 &&  products.map((product:ProductObject) => {
+              return <CardProduct key={product.sys.id} product={product} />
+            })}
 
-          {currentPage > 1 && error && <div className='error'>Something went wrong..</div> }
-          { currentPage > 1 && loading &&  <div className='loading'>Its loading...</div> }
-          { currentPage > 1 && newData && newData.map((product:ProductObject) => {
-            return <CardProduct key={product.sys.id} product={product} />
-          })}
+            {currentPage > 1 && error && <div className='error'>Something went wrong..</div> }
+            { currentPage > 1 && loading &&  <div className='loading'>Its loading...</div> }
+            { currentPage > 1 && newData && newData.map((product:ProductObject) => {
+              return <CardProduct key={product.sys.id} product={product} />
+            })}
+          </div>
           <Pagination pages={pages} setPage={setCurrentPage} page={currentPage}/>
         </div>
 
-
-
       </div>
-
       <Footer/>
              {/* <pre>{  JSON.stringify(data, null, 2)}</pre> */}
     </main>
@@ -62,7 +62,7 @@ export const getStaticProps: GetStaticProps = async () => {
     body: JSON.stringify({
      query: `
        query {
-         productCollection(limit:12){
+         productCollection(limit:12 where:{} order:[price_DESC]){
            total
            items{
                thumbnail{
@@ -76,6 +76,7 @@ export const getStaticProps: GetStaticProps = async () => {
                storage
                system
                price
+               brand
                sys{
                  id
                }
