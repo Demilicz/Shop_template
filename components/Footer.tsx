@@ -1,7 +1,7 @@
 export const Footer = () => {
   return (
     <div className="container">
-         <footer className="footer">copyright © 2021 . all rights reserved.</footer>
+         <footer className="footer">copyright © 2022 . all rights reserved.</footer>
          <style jsx>
           { `
             .container{

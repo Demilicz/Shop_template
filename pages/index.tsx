@@ -8,7 +8,7 @@ import { CardProduct , Header, Footer, Filters, Pagination} from '../components/
 
 import { useGetProducts } from '../hooks/useGetProducts';
 
-import { ProductObject } from '../interfaces/interfaces';
+import { ProductObject, Brands } from '../interfaces/interfaces';
 
 import  Style  from '../styles/Home.module.css';
 
@@ -18,16 +18,18 @@ const Home: NextPage<{products:ProductObject[]}> = ({ products, total } : InferG
   const [pages, setPages] = useState(Math.ceil(total/12));
   const [currentPage, setCurrentPage] = useState(1);
 
+  const [arrayOfBrands, setArrayOfBrands] = useState({} as Brands);
+
   const { error, loading, newData } : { error: ApolloError | undefined; loading: boolean; newData: ProductObject[]; } = useGetProducts(currentPage);
 
-  console.log(products);
+
 
 
   return (
     <main>
       <Header/>
       <div className={Style.container}>
-        <Filters/>
+        <Filters brands={arrayOfBrands} setBrands={setArrayOfBrands} />
         <div className={Style.card_container}>
           <div className={Style.card_container_flex}>
             {currentPage === 1 &&  products.map((product:ProductObject) => {

@@ -1,23 +1,29 @@
-export const Filters = () => {
+import { Dispatch, SetStateAction } from "react";
+import React from "react";
+
+import { Brands } from '../interfaces/interfaces';
+
+export const Filters  = (props: {brands: Brands, setBrands: Dispatch<SetStateAction<Brands>>}) => {
+
+  const brandHandler = (e: EventTarget, brands: Brands, setBrands: Dispatch<SetStateAction<Brands>>) => {
+
+  }
+
   return (
     <div className="container">
       <div className="brand-container">
         <p>Choose brand your</p>
         <div className="brand-filter">
           <div>
-            <input type="checkbox"/>
-            <label >Apple</label>
+            <input id="apple" type="checkbox" onChange={(e: React.ChangeEvent<HTMLInputElement>)=>{ console.log(e.target)}}/>
+            <label htmlFor="apple">Apple</label>
           </div>
           <div>
-            <input type="checkbox"/>
-            <label >Xiaomi</label>
+            <input id="xiaomi"  type="checkbox" />
+            <label htmlFor="xiaomi">Xiaomi</label>
           </div>
           <div>
-            <input type="checkbox"/>
-            <label >Samsung</label>
-          </div>
-        </div>
-      </div>
+            
 
 
 
