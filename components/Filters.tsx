@@ -23,7 +23,11 @@ export const Filters  = (props: {brands: Brands, setBrands: Dispatch<SetStateAct
             <label htmlFor="xiaomi">Xiaomi</label>
           </div>
           <div>
-            
+            <input id="samsung" type="checkbox"/>
+            <label htmlFor="samsung">Samsung</label>
+          </div>
+        </div>
+      </div>
 
 
 
