@@ -19,8 +19,4 @@ export interface Thumbnail {
   url:    string;
 }
 
-export interface Brands {
-  Apple: boolean,
-  Xiaomi: boolean,
-  Samsung: boolean,
-}
+

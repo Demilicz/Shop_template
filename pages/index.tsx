@@ -2,28 +2,49 @@ import { ApolloError } from '@apollo/client';
 
 import { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next';
 
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 
 import { CardProduct , Header, Footer, Filters, Pagination} from '../components/index';
 
 import { useGetProducts } from '../hooks/useGetProducts';
 
-import { ProductObject, Brands } from '../interfaces/interfaces';
+import { ProductObject } from '../interfaces/interfaces';
 
 import  Style  from '../styles/Home.module.css';
 
 
 const Home: NextPage<{products:ProductObject[]}> = ({ products, total } : InferGetStaticPropsType<typeof getStaticProps>) => {
 
-  const [pages, setPages] = useState(Math.ceil(total/12));
+  const [ productPerPage, setProductPerPage] = useState(12);
+
   const [currentPage, setCurrentPage] = useState(1);
 
-  const [arrayOfBrands, setArrayOfBrands] = useState({} as Brands);
+  const [arrayOfBrands, setArrayOfBrands] = useState(["Apple", "Xiaomi", "Samsung"] as Array<string>);
 
-  const { error, loading, newData } : { error: ApolloError | undefined; loading: boolean; newData: ProductObject[]; } = useGetProducts(currentPage);
+  const { error, loading, newData, newTotal } : { error: ApolloError | undefined; loading: boolean; newData: ProductObject[]; newTotal:number} = useGetProducts(currentPage, arrayOfBrands, productPerPage);
+
+  const [pages, setPages] = useState(Math.ceil(total/productPerPage));
+
+  useEffect(()=> {
+
+    if(newTotal ){
+
+      let newPages = Math.ceil(newTotal/productPerPage);
+
+      setPages(newPages);
+
+    }
+    console.log(pages);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[newTotal])
+
+  useEffect(()=>{
+
+    console.log(arrayOfBrands);
 
 
-
+  }, [arrayOfBrands])
 
   return (
     <main>
@@ -31,23 +52,32 @@ const Home: NextPage<{products:ProductObject[]}> = ({ products, total } : InferG
       <div className={Style.container}>
         <Filters brands={arrayOfBrands} setBrands={setArrayOfBrands} />
         <div className={Style.card_container}>
+
           <div className={Style.card_container_flex}>
-            {currentPage === 1 &&  products.map((product:ProductObject) => {
+
+            { error && <div className='error'>Something went wrong..</div> }
+            { loading &&  <div className='loading'>Its loading...</div> }
+
+            { arrayOfBrands.length === 3 && currentPage === 1 && products.map((product:ProductObject) => {
               return <CardProduct key={product.sys.id} product={product} />
             })}
 
-            {currentPage > 1 && error && <div className='error'>Something went wrong..</div> }
-            { currentPage > 1 && loading &&  <div className='loading'>Its loading...</div> }
-            { currentPage > 1 && newData && newData.map((product:ProductObject) => {
+            { arrayOfBrands.length === 3 && currentPage > 1 && newData && newData.map((product:ProductObject) => {
               return <CardProduct key={product.sys.id} product={product} />
             })}
+
+            { arrayOfBrands.length < 3  && newData && newData.map((product:ProductObject) => {
+              return <CardProduct key={product.sys.id} product={product} />
+            })}
+
           </div>
+
           <Pagination pages={pages} setPage={setCurrentPage} page={currentPage}/>
         </div>
 
       </div>
       <Footer/>
-             {/* <pre>{  JSON.stringify(data, null, 2)}</pre> */}
+
     </main>
   )
 }
@@ -64,7 +94,7 @@ export const getStaticProps: GetStaticProps = async () => {
     body: JSON.stringify({
      query: `
        query {
-         productCollection(limit:12 where:{} order:[price_DESC]){
+         productCollection(limit:12){
            total
            items{
                thumbnail{
@@ -79,7 +109,7 @@ export const getStaticProps: GetStaticProps = async () => {
                system
                price
                brand
-               sys{
+               sys {
                  id
                }
              }
