@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import React from "react";
 
-export const Filters  = (props: {brands: string[], setBrands: Dispatch<SetStateAction<string[]>>}) => {
+export const BrandsFilter  = (props: {brands: string[], setBrands: Dispatch<SetStateAction<string[]>>}) => {
 
   const [firstCheck, setFirstCheck] = useState(false);
 

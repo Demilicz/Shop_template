@@ -4,7 +4,7 @@ import { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next';
 
 import { useState, useEffect} from 'react';
 
-import { CardProduct , Header, Footer, Filters, Pagination} from '../components/index';
+import { CardProduct , Header, Footer, BrandsFilter, Pagination} from '../components/index';
 
 import { useGetProducts } from '../hooks/useGetProducts';
 
@@ -50,7 +50,7 @@ const Home: NextPage<{products:ProductObject[]}> = ({ products, total } : InferG
     <main>
       <Header/>
       <div className={Style.container}>
-        <Filters brands={arrayOfBrands} setBrands={setArrayOfBrands} />
+        <BrandsFilter brands={arrayOfBrands} setBrands={setArrayOfBrands} />
         <div className={Style.card_container}>
 
           <div className={Style.card_container_flex}>

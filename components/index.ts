@@ -1,5 +1,5 @@
-export  { CardProduct } from './CardProduct';
-export  { Header } from './Header';
-export  { Footer } from './Footer';
-export  { Filters } from './brandFiltr';
-export  { Pagination } from './Pagination';
+export  { CardProduct } from '../components/CardProduct';
+export  { Header } from '../components/Header';
+export  { Footer } from '../components/Footer';
+export  { BrandsFilter } from '../components/brandsFilter';
+export  { Pagination } from '../components/Pagination';
