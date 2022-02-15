@@ -123,8 +123,8 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      products: products || null,
-      total: total || null
+      products: JSON.parse(JSON.stringify(products)),
+      total: JSON.parse(JSON.stringify(total))
     }
   }
 }
