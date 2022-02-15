@@ -53,7 +53,7 @@ const Home: NextPage<{products:ProductObject[]}> = ({ products, total } : InferG
             { error && <div className='error'>Something went wrong..</div> }
             { loading &&  <div className='loading'>Its loading...</div> }
 
-            { arrayOfBrands.length === 3 && currentPage === 1 && products.map((product:ProductObject) => {
+            { arrayOfBrands.length === 3 && currentPage === 1 && products?.map((product:ProductObject) => {
               return <CardProduct key={product.sys.id} product={product} />
             })}
 
@@ -123,8 +123,8 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      products,
-      total
+      products: products || null,
+      total: total || null
     }
   }
 }
