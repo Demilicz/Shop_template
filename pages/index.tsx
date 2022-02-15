@@ -117,9 +117,9 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const {data} = await res?.json();
 
-  const products:ProductObject[] = JSON.parse(JSON.stringify(data?.productCollection?.items));
+  const products:ProductObject[] = data?.productCollection?.items;
 
-  const total: number = JSON.parse(JSON.stringify(data?.productCollection?.total));
+  const total: number = data?.productCollection?.total;
 
   return {
     props: {
