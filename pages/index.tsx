@@ -39,12 +39,7 @@ const Home: NextPage<{products:ProductObject[]}> = ({ products, total } : InferG
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[newTotal])
 
-  useEffect(()=>{
 
-    console.log(arrayOfBrands);
-
-
-  }, [arrayOfBrands])
 
   return (
     <main>
@@ -128,8 +123,8 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-     products,
-     total
+      products: products || null,
+      total: total || null
     }
   }
 }
