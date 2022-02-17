@@ -17,3 +17,9 @@
  flex-wrap: wrap;
  width: 1200px;
 }
+
+.brand_container{
+  display: flex;
+  flex-direction: column;
+
+}
