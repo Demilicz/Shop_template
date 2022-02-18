@@ -8,7 +8,7 @@ export const CardProduct = ({product}: {product:ProductObject}) => {
   const { screen, storage, system,  processor, title, thumbnail, price } = product;
 
   return (
-    <div className='card'>
+    <div>
       <Image  src={ thumbnail.url } width={ thumbnail.width } height={ thumbnail.height } alt={ title }/>
       <h3>{ title }</h3>
       <div className='info'>
@@ -18,14 +18,7 @@ export const CardProduct = ({product}: {product:ProductObject}) => {
         <span className='card_text'>System:{ system }</span>
         <p className='card_price'>Price: { price +'zł'}</p>
       </div>
-
       <style jsx>{`
-            .card{
-              flex: 0 0 33%;
-              display: flex;
-              flex-direction: column;
-              padding: 35px 65px;
-            }
             .info{
               display: flex;
               flex-direction: column;

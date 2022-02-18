@@ -2,6 +2,8 @@ import { ApolloError } from '@apollo/client';
 
 import { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next';
 
+import  Link  from 'next/link'
+
 import { useState, useEffect} from 'react';
 
 import { CardProduct , Header, Footer, BrandsFilter, Pagination, PriceFilter } from '../components/index';
@@ -53,10 +55,17 @@ const Home: NextPage<{products:ProductObject[]}> = ({ products, total } : InferG
           <div className={Style.card_container_flex}>
 
             { error && <div className='error'>Something went wrong..</div> }
+
             { loading &&  <div className='loading'>Its loading...</div> }
 
             { priceRange[0] === 0 && priceRange[1] === 100000 && arrayOfBrands.length === 3 && currentPage === 1 && products?.map((product:ProductObject) => {
-              return <CardProduct key={product.sys.id} product={product} />
+              return  <div key={product.sys.id +"div"} className={Style.card_product}>
+                        <Link href={`/${product.slug}&${product.sys.id}`} key={product.sys.id +"link"}>
+                          <a>
+                            <CardProduct key={product.sys.id +"card"} product={product} />
+                          </a>
+                        </Link>
+                      </div>
             })}
 
             { priceRange[0] === 0 && priceRange[1] === 100000 &&  arrayOfBrands.length === 3 && currentPage > 1 && newData && newData.map((product:ProductObject) => {
@@ -85,7 +94,9 @@ const Home: NextPage<{products:ProductObject[]}> = ({ products, total } : InferG
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async (context) => {
+
+  const id = context.params;
 
   const res = await fetch(`https://graphql.contentful.com/content/v1/spaces/${process.env.NEXT_PUBLIC_SPACE_ID}/environments/master`,
   {
@@ -110,6 +121,7 @@ export const getStaticProps: GetStaticProps = async () => {
                processor
                storage
                system
+               slug
                price
                brand
                sys {

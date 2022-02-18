@@ -16,6 +16,7 @@ query GET_Products($skip: Int!, $brands: [String]!, $productPerPage: Int!, $pric
         processor
         storage
         system
+        slug
         price
         sys{
           id
