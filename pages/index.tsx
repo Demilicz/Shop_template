@@ -62,8 +62,6 @@ const Home: NextPage<{products:ProductObject[]}> = ({ products, total } : InferG
                       </Link>
             })}
 
-            { loading &&  <div className='loading'>Its loading...</div> }
-
             { error && <div className='error'>Something went wrong..</div> }
 
             { priceRange[0] === 0 && priceRange[1] === 100000 &&  arrayOfBrands.length === 3 && currentPage > 1 && newData && newData.map((product:ProductObject) => {
