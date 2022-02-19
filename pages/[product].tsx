@@ -1,14 +1,19 @@
 import React from 'react'
 import { GetStaticProps, GetStaticPaths, InferGetStaticPropsType, NextPage } from 'next';
 import { Slugs, Describe } from '../interfaces/interfaces';
+import Image from 'next/image';
 
 export const Product: NextPage<{currentProduct:Describe}> = ({ currentProduct }: InferGetStaticPropsType<typeof getStaticProps>) => {
 
-
+  const { title, screen, processor, storage, system, price, image: {url, width, height }, info } = currentProduct.data.product;
 
   return (
     <div>
-      {currentProduct && <div>{currentProduct?.data?.product?.title}</div>}
+      {currentProduct &&  <div>
+                            <h1>{title}</h1>
+                            {/* <Image src={image.url} height={} /> */}
+                          </div>
+      }
     </div>
   )
 }
@@ -40,6 +45,11 @@ export  const getStaticProps: GetStaticProps = async({params}) => {
           storage
           system
           price
+          image{
+						url
+            width
+            height
+          }
           info { json }
         }
       }

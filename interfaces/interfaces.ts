@@ -43,7 +43,6 @@ export interface Sys {
   id: string;
 }
 
-
 export interface Describe {
   data: DescribeData;
 }
@@ -59,7 +58,14 @@ export interface Product {
   storage:   string;
   system:    string;
   price:     number;
+  image:     Image;
   info:      Info;
+}
+
+export interface Image {
+  url:    string;
+  width:  number;
+  height: number;
 }
 
 export interface Info {
@@ -87,5 +93,4 @@ export interface ContentContent {
 
 export interface ContentData {
 }
-
 

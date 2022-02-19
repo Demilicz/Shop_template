@@ -59,28 +59,36 @@ const Home: NextPage<{products:ProductObject[]}> = ({ products, total } : InferG
             { loading &&  <div className='loading'>Its loading...</div> }
 
             { priceRange[0] === 0 && priceRange[1] === 100000 && arrayOfBrands.length === 3 && currentPage === 1 && products?.map((product:ProductObject) => {
-              return  <div key={product.sys.id +"div"} className={Style.card_product}>
-                        <Link href={`/${product.slug}&${product.sys.id}`} key={product.sys.id +"link"}>
-                          <a>
-                            <CardProduct key={product.sys.id +"card"} product={product} />
-                          </a>
-                        </Link>
-                      </div>
+              return  <Link href={`/${product.slug}&${product.sys.id}`} key={product.sys.id +"link"}>
+                        <a className={Style.card_product}>
+                          <CardProduct key={product.sys.id +"card"} product={product} />
+                        </a>
+                      </Link>
             })}
 
             { priceRange[0] === 0 && priceRange[1] === 100000 &&  arrayOfBrands.length === 3 && currentPage > 1 && newData && newData.map((product:ProductObject) => {
-              return <CardProduct key={product.sys.id} product={product} />
+              return  <Link href={`/${product.slug}&${product.sys.id}`} key={product.sys.id +"link"}>
+                        <a className={Style.card_product}>
+                          <CardProduct key={product.sys.id} product={product} />
+                        </a>
+                      </Link>
             })}
 
             { priceRange[0] === 0 && priceRange[1] === 100000 && arrayOfBrands.length < 3  && newData && newData.map((product:ProductObject) => {
-              return <CardProduct key={product.sys.id} product={product} />
+              return  <Link href={`/${product.slug}&${product.sys.id}`} key={product.sys.id +"link"}>
+                        <a className={Style.card_product}>
+                          <CardProduct key={product.sys.id} product={product} />
+                        </a>
+                      </Link>
             })}
 
             { (priceRange[0] > 0 || priceRange[1] < 100000 ) && newData && newData.map((product:ProductObject) => {
-              return <CardProduct key={product.sys.id} product={product} />
-            })
-
-            }
+              return  <Link href={`/${product.slug}&${product.sys.id}`} key={product.sys.id +"link"}>
+                        <a className={Style.card_product}>
+                          <CardProduct key={product.sys.id} product={product} />
+                        </a>
+                      </Link>
+            })}
 
           </div>
 
