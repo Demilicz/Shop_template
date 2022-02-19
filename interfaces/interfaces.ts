@@ -58,11 +58,11 @@ export interface Product {
   storage:   string;
   system:    string;
   price:     number;
-  image:     Image;
+  image:     Picture;
   info:      Info;
 }
 
-export interface Image {
+export interface Picture {
   url:    string;
   width:  number;
   height: number;

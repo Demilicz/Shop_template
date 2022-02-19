@@ -58,6 +58,12 @@ const Home: NextPage<{products:ProductObject[]}> = ({ products, total } : InferG
 
             { loading &&  <div className='loading'>Its loading...</div> }
 
+            {
+             console.log(priceRange[0] === 0 && priceRange[1] === 100000, !products, products)
+            }
+
+
+
             { priceRange[0] === 0 && priceRange[1] === 100000 && arrayOfBrands.length === 3 && currentPage === 1 && products?.map((product:ProductObject) => {
               return  <Link href={`/${product.slug}&${product.sys.id}`} key={product.sys.id +"link"}>
                         <a className={Style.card_product}>
