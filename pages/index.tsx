@@ -62,9 +62,9 @@ const Home: NextPage<{products:ProductObject[]}> = ({ products, total } : InferG
                       </Link>
             })}
 
-            { error && <div className='error'>Something went wrong..</div> }
-
             { loading &&  <div className='loading'>Its loading...</div> }
+
+            { error && <div className='error'>Something went wrong..</div> }
 
             { priceRange[0] === 0 && priceRange[1] === 100000 &&  arrayOfBrands.length === 3 && currentPage > 1 && newData && newData.map((product:ProductObject) => {
               return  <Link href={`/${product.slug}&${product.sys.id}`} key={product.sys.id +"link"}>
